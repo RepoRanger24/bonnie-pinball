@@ -42,6 +42,17 @@
         font-size: 1rem;
         color: #222;
       }
+
+      #checksLabel {
+        margin-top: 0.75rem;
+        font-weight: bold;
+        color: #222;
+      }
+
+      #checksText {
+        margin-top: 0.35rem;
+        color: #333;
+      }
     </style>
   </head>
   <body>
@@ -49,6 +60,8 @@
       <h1>Chip's First App</h1>
       <button id="clickButton" type="button">Click Me</button>
       <p id="issueText" aria-live="polite"></p>
+      <p id="checksLabel" aria-live="polite"></p>
+      <p id="checksText" aria-live="polite"></p>
     </main>
 
     <script>
@@ -59,15 +72,27 @@
         .addEventListener("click", function () {
           const issue = prompt("Enter machine issue:");
           const issueText = document.getElementById("issueText");
+          const checksLabel = document.getElementById("checksLabel");
+          const checksText = document.getElementById("checksText");
 
           if (issue === null) {
             issueText.textContent = "No issue entered.";
+            checksLabel.textContent = "";
+            checksText.textContent = "";
             return;
           }
 
-          issueText.textContent = issue.trim()
-            ? `Machine issue: ${issue}`
+          const trimmedIssue = issue.trim();
+
+          issueText.textContent = trimmedIssue
+            ? `Machine issue: ${trimmedIssue}`
             : "Machine issue: (empty)";
+
+          checksLabel.textContent = "Suggested checks:";
+          checksText.textContent =
+            trimmedIssue.toLowerCase() === "pump"
+              ? "Check power, check prime, check blockage"
+              : "General inspection required";
         });
     </script>
   </body>
