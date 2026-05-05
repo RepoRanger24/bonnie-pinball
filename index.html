@@ -36,21 +36,38 @@
       button:hover {
         background: #efefef;
       }
+
+      #issueText {
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: #222;
+      }
     </style>
   </head>
   <body>
     <main class="app">
       <h1>Chip's First App</h1>
       <button id="clickButton" type="button">Click Me</button>
+      <p id="issueText" aria-live="polite"></p>
     </main>
 
     <script>
-      // Root cause: the button had no click handler attached.
-      // Fix: attach a click event listener that shows the requested alert message.
+      // Root cause: the click handler only showed a fixed alert and never captured user input.
+      // Fix: prompt for the machine issue, then render the entered text in the page.
       document
         .getElementById("clickButton")
         .addEventListener("click", function () {
-          alert("Button clicked!");
+          const issue = prompt("Enter machine issue:");
+          const issueText = document.getElementById("issueText");
+
+          if (issue === null) {
+            issueText.textContent = "No issue entered.";
+            return;
+          }
+
+          issueText.textContent = issue.trim()
+            ? `Machine issue: ${issue}`
+            : "Machine issue: (empty)";
         });
     </script>
   </body>
