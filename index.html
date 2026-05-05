@@ -41,7 +41,17 @@
   <body>
     <main class="app">
       <h1>Chip's First App</h1>
-      <button type="button">Click Me</button>
+      <button id="clickButton" type="button">Click Me</button>
     </main>
+
+    <script>
+      // Root cause: the button had no click handler attached.
+      // Fix: attach a click event listener that shows the requested alert message.
+      document
+        .getElementById("clickButton")
+        .addEventListener("click", function () {
+          alert("Button clicked!");
+        });
+    </script>
   </body>
 </html>
